@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Tourism Where</string>
+    <string name="cant_find_location">ไม่พบตำแหน่งของคุณ</string>
+    <string name="please_enable_location">กรุณาเปิด location เพื่อระบุตำแหน่งของคุณ</string>
+    <string name="setting">ตั้งค่า</string>
+    <string name="kilometer">กม.</string>
+    <string name="radius_from_current">ระยะห่างจากตำแหน่งปัจจุบัน (กม.)</string>
+    <string name="submit">ตกลง</string>
+</resources>
