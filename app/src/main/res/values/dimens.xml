@@ -17,4 +17,5 @@
 
     <dimen name="elevation_width">4dp</dimen>
     <dimen name="attraction_item_width">256dp</dimen>
+    <dimen name="image_slide_height">256dp</dimen>
 </resources>

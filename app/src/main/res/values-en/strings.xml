@@ -7,4 +7,5 @@
     <string name="kilometer">กม.</string>
     <string name="radius_from_current">ระยะห่างจากตำแหน่งปัจจุบัน (กม.)</string>
     <string name="submit">ตกลง</string>
+    <string name="history">ประวัติ</string>
 </resources>
