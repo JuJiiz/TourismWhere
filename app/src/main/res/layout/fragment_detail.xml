@@ -4,7 +4,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:focusable="true">
 
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -113,18 +116,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
                     android:background="@android:color/darker_gray"/>
 
-            <LinearLayout
+            <RelativeLayout
+                    android:id="@+id/ll_tel"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_margin="8dp">
+                    android:layout_height="?attr/actionBarSize"
+                    android:orientation="vertical">
 
                 <ImageView
+                        android:id="@+id/ic_tel"
                         android:layout_width="@dimen/icon_size_m"
                         android:layout_height="@dimen/icon_size_m"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="8dp"
                         app:srcCompat="@drawable/ic_phone"/>
 
                 <TextView
@@ -132,25 +138,39 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_size_m"
-                        android:gravity="center"/>
-            </LinearLayout>
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/ic_tel"
+                        android:gravity="center_vertical"
+                        android:layout_margin="8dp"/>
 
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@android:color/darker_gray"/>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:color/darker_gray"/>
 
-            <LinearLayout
+                <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="4dp"
+                        android:background="@android:color/holo_orange_light"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/ll_website"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_margin="8dp">
+                    android:layout_height="?attr/actionBarSize"
+                    android:orientation="vertical">
 
                 <ImageView
+                        android:id="@+id/ic_website"
                         android:layout_width="@dimen/icon_size_m"
                         android:layout_height="@dimen/icon_size_m"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="8dp"
                         app:srcCompat="@drawable/ic_website"/>
 
                 <TextView
@@ -158,25 +178,39 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_size_m"
-                        android:gravity="center"/>
-            </LinearLayout>
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/ic_website"
+                        android:gravity="center_vertical"
+                        android:layout_margin="8dp"/>
 
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@android:color/darker_gray"/>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:color/darker_gray"/>
 
-            <LinearLayout
+                <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="4dp"
+                        android:background="@android:color/holo_blue_light"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/ll_email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_margin="8dp">
+                    android:layout_height="?attr/actionBarSize"
+                    android:orientation="vertical">
 
                 <ImageView
+                        android:id="@+id/ic_email"
                         android:layout_width="@dimen/icon_size_m"
                         android:layout_height="@dimen/icon_size_m"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="8dp"
                         app:srcCompat="@drawable/ic_mail"/>
 
                 <TextView
@@ -184,15 +218,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_size_m"
-                        android:gravity="center"/>
-            </LinearLayout>
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/ic_email"
+                        android:gravity="center_vertical"
+                        android:layout_margin="8dp"/>
 
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@android:color/darker_gray"/>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:color/darker_gray"/>
+
+                <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="4dp"
+                        android:background="@android:color/holo_purple"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 

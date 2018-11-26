@@ -3,7 +3,6 @@ package com.tourismwhere.tourismwhere.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ class RadiusDialogFragment : DialogFragment() {
     private var radius = 5
 
     companion object {
-        val Tag = PermissionDialogFragment::class.java.simpleName
+        val Tag = RadiusDialogFragment::class.java.simpleName
     }
 
     interface OnRadiusSetting {
@@ -50,6 +49,11 @@ class RadiusDialogFragment : DialogFragment() {
             if (context is OnRadiusSetting) (context as OnRadiusSetting).updateRadius(radius)
             this.dismiss()
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        dialog.window?.attributes?.windowAnimations = R.style.MoveFromBottom
     }
 
 

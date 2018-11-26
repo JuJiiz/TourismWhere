@@ -30,6 +30,8 @@ import com.tourismwhere.tourismwhere.Constant.LOCATION_PERMISSION_REQUEST_CODE
 import com.tourismwhere.tourismwhere.R
 import com.tourismwhere.tourismwhere.adapter.AttractionsAdapter
 import com.tourismwhere.tourismwhere.model.AttractionModel
+import com.tourismwhere.tourismwhere.safeLet
+import com.tourismwhere.tourismwhere.ui.fragment.DetailFragment
 import com.tourismwhere.tourismwhere.ui.fragment.PermissionDialogFragment
 import com.tourismwhere.tourismwhere.ui.fragment.RadiusDialogFragment
 import com.tourismwhere.tourismwhere.viewmodel.MainViewModel
@@ -42,8 +44,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragment.OnRadiusSetting {
-
+class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragment.OnRadiusSetting,
+    AttractionsAdapter.OnItemClick {
     @Inject
     lateinit var mAdapter: AttractionsAdapter
     @Inject
@@ -201,24 +203,21 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
                 result.attractionModel?.run {
 
                     this.forEach {
-                        it.location?.also { location ->
-                            location.latitude?.let { latitude ->
-                                location.longitude?.let { longitude ->
-                                    mMap.addMarker(
-                                        MarkerOptions().position(
-                                            LatLng(
-                                                latitude,
-                                                longitude
-                                            )
-                                        ).title(if (it.name != null) it.name else "-")
+                        safeLet(it.location?.latitude, it.location?.longitude) { latitude, longitude ->
+                            mMap.addMarker(
+                                MarkerOptions().position(
+                                    LatLng(
+                                        latitude,
+                                        longitude
                                     )
-                                }
-                            }
+                                ).title(if (it.name != null) it.name else "-")
+                            )
                         }
                     }
 
                     venues = this
-                    mAdapter.mAttractionsList = this
+                    mAdapter.mCurrentLocation = centerLocation
+                    mAdapter.mAttractionsList = this.reversed()
                     mAdapter.notifyDataSetChanged()
                 }
             }
@@ -236,5 +235,20 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
         radius = newRadius
         tvRadius.text = "$radius"
         getCurrentLocation()
+    }
+
+    override fun showAttraction(attraction: AttractionModel) {
+        if (supportFragmentManager.findFragmentByTag(DetailFragment.Tag) == null) {
+            val detailFragment = DetailFragment()
+            val bundle = Bundle()
+            bundle.putParcelable("ATTRACTION", attraction)
+            detailFragment.arguments = bundle
+
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
+                .replace(android.R.id.content, detailFragment, DetailFragment.Tag)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 }

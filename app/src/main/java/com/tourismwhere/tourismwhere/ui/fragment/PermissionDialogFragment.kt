@@ -45,7 +45,7 @@ class PermissionDialogFragment : DialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        dialog.window?.attributes?.windowAnimations = R.style.MoveFromBottomDialog
+        dialog.window?.attributes?.windowAnimations = R.style.MoveFromBottom
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
