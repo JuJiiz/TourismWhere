@@ -1,5 +1,7 @@
 package com.tourismwhere.tourismwhere.ui.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +10,9 @@ import android.view.ViewGroup
 import com.tourismwhere.tourismwhere.R
 import com.tourismwhere.tourismwhere.adapter.SliderAdapter
 import com.tourismwhere.tourismwhere.model.AttractionModel
+import com.tourismwhere.tourismwhere.safeLet
 import kotlinx.android.synthetic.main.fragment_detail.*
+
 
 class DetailFragment : Fragment() {
     private lateinit var attractionModel: AttractionModel
@@ -32,6 +36,16 @@ class DetailFragment : Fragment() {
         attractionModel.location?.also { location ->
             tvAddress.text =
                     "${if (location.amphur != null) location.amphur else "-"}, ${if (location.province != null) location.province else "-"}"
+
+            safeLet(location.latitude, location.longitude) { latitude, longitude ->
+                btnDirection.setOnClickListener {
+                    val intent = Intent(
+                        android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?daddr=$latitude,$longitude")
+                    )
+                    startActivity(intent)
+                }
+            }
         }
 
         tvHistory.text = "${attractionModel.history}"

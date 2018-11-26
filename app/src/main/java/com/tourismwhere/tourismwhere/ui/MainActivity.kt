@@ -201,7 +201,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
         when (result?.fetchState) {
             MainViewModel.FetchAttractionState.SUCCESS -> {
                 result.attractionModel?.run {
-
                     this.forEach {
                         safeLet(it.location?.latitude, it.location?.longitude) { latitude, longitude ->
                             mMap.addMarker(
@@ -219,6 +218,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
                     mAdapter.mCurrentLocation = centerLocation
                     mAdapter.mAttractionsList = this.reversed()
                     mAdapter.notifyDataSetChanged()
+
+                    mMap.setOnInfoWindowClickListener { marker ->
+                        val selected = venues.singleOrNull { attractionModel -> attractionModel.name == marker.title }
+                        if (selected != null) showDetail(selected)
+                    }
                 }
             }
             MainViewModel.FetchAttractionState.FAILED -> {
@@ -238,6 +242,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
     }
 
     override fun showAttraction(attraction: AttractionModel) {
+        showDetail(attraction)
+    }
+
+    private fun showDetail(attraction: AttractionModel) {
         if (supportFragmentManager.findFragmentByTag(DetailFragment.Tag) == null) {
             val detailFragment = DetailFragment()
             val bundle = Bundle()
