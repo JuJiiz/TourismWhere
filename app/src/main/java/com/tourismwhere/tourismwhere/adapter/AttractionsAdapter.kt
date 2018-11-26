@@ -2,7 +2,6 @@ package com.tourismwhere.tourismwhere.adapter
 
 import android.location.Location
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,7 +71,6 @@ class AttractionsAdapter @Inject constructor() : RecyclerView.Adapter<Attraction
                     locationB.latitude = latitude
                     locationB.longitude = longitude
 
-                    Log.d("MLOG", "${attraction.name} distance: ${locationA.distanceTo(locationB) / 1000}")
                     tvAttractionDistance.text = "%.2f".format(locationA.distanceTo(locationB) / 1000)
                 }
             }

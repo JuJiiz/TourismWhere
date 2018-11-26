@@ -13,7 +13,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <FrameLayout
+        <RelativeLayout
+                android:id="@+id/imageSlide"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@android:color/darker_gray">
+
+            <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            <android.support.design.widget.TabLayout
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    app:tabIndicator="@drawable/ic_indicator"
+                    app:tabIndicatorColor="@android:color/white"
+                    app:tabIndicatorHeight="@dimen/icon_size_m"
+                    app:tabGravity="center" />
+        </RelativeLayout>
+
+        <!--<FrameLayout
                 android:id="@+id/imageSlide"
                 android:layout_width="match_parent"
                 android:layout_height="256dp"
@@ -38,7 +63,7 @@
 
             </LinearLayout>
 
-        </FrameLayout>
+        </FrameLayout>-->
 
         <LinearLayout
                 android:id="@+id/header"
