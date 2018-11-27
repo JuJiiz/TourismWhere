@@ -14,7 +14,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -35,7 +34,7 @@ class MainViewModel @Inject constructor(@param:Production private val mApiServic
     object AttractionResult {
         var fetchState: FetchAttractionState = MainViewModel.FetchAttractionState.FAILED
         var message = "no data."
-        var attractionModel: List<AttractionModel>? = null
+        var attractionModel: ArrayList<AttractionModel>? = null
     }
 
     fun requestPermission(activity: Activity) {
@@ -109,7 +108,7 @@ class MainViewModel @Inject constructor(@param:Production private val mApiServic
     private fun setAttractionResult(
         fetchState: FetchAttractionState = FetchAttractionState.FAILED,
         message: String,
-        attractions: List<AttractionModel>?
+        attractions: ArrayList<AttractionModel>?
     ) {
         val result = AttractionResult
         result.fetchState = fetchState

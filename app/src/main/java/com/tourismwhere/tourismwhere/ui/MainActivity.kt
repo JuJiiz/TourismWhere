@@ -34,6 +34,7 @@ import com.tourismwhere.tourismwhere.safeLet
 import com.tourismwhere.tourismwhere.ui.fragment.DetailFragment
 import com.tourismwhere.tourismwhere.ui.fragment.PermissionDialogFragment
 import com.tourismwhere.tourismwhere.ui.fragment.RadiusDialogFragment
+import com.tourismwhere.tourismwhere.ui.fragment.SearchFragment
 import com.tourismwhere.tourismwhere.viewmodel.MainViewModel
 import com.tourismwhere.tourismwhere.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
@@ -45,7 +46,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragment.OnRadiusSetting,
-    AttractionsAdapter.OnItemClick {
+    AttractionsAdapter.OnItemClick, SearchFragment.OnItemClick {
     @Inject
     lateinit var mAdapter: AttractionsAdapter
     @Inject
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
     private lateinit var centerLocation: LatLng
     private var dialogFragment = PermissionDialogFragment()
     private var radius = 5
-    var venues: List<AttractionModel> = listOf()
+    var venues: ArrayList<AttractionModel> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +89,21 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
                 bundle.putInt("RADIUS", radius)
                 radiusDialogFragment.arguments = bundle
                 radiusDialogFragment.show(supportFragmentManager, RadiusDialogFragment.Tag)
+            }
+        }
+
+        btnSearch.setOnClickListener {
+            if (supportFragmentManager.findFragmentByTag(SearchFragment.Tag) == null) {
+                val searchFragment = SearchFragment()
+                val bundle = Bundle()
+                bundle.putParcelableArrayList("ATTRACTION", venues)
+                searchFragment.arguments = bundle
+
+                supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
+                    .replace(android.R.id.content, searchFragment, SearchFragment.Tag)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }

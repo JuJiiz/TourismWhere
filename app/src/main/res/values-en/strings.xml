@@ -8,4 +8,6 @@
     <string name="radius_from_current">ระยะห่างจากตำแหน่งปัจจุบัน (กม.)</string>
     <string name="submit">ตกลง</string>
     <string name="history">ประวัติ</string>
+    <string name="find_atrraction">ค้นหาแหล่งท่องเที่ยว</string>
+    <string name="find">ค้นหา</string>
 </resources>
