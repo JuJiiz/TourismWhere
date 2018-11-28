@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
     private lateinit var centerLocation: LatLng
     private var dialogFragment = PermissionDialogFragment()
     private var radius = 5
-    var venues: ArrayList<AttractionModel> = arrayListOf()
+    private var venues: ArrayList<AttractionModel> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

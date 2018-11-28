@@ -33,6 +33,10 @@ class DetailFragment : Fragment() {
 
         tvName.text = "${attractionModel.name}"
 
+        btnClose.setOnClickListener {
+            fragmentManager?.popBackStack()
+        }
+
         attractionModel.location?.also { location ->
             tvAddress.text =
                     "${if (location.amphur != null) location.amphur else "-"}, ${if (location.province != null) location.province else "-"}"
