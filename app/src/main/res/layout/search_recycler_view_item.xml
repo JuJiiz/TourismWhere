@@ -28,7 +28,7 @@
                 android:padding="8dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                app:srcCompat="@drawable/ic_go"/>
+                app:srcCompat="@drawable/ic_forward"/>
 
     </RelativeLayout>
 
