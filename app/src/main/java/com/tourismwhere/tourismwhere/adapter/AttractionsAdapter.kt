@@ -5,11 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
+import com.joooonho.SelectableRoundedImageView
 import com.tourismwhere.tourismwhere.R
 import com.tourismwhere.tourismwhere.model.AttractionModel
 import com.tourismwhere.tourismwhere.safeLet
@@ -39,7 +39,7 @@ class AttractionsAdapter @Inject constructor() : RecyclerView.Adapter<Attraction
 
     inner class AttractionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var rootItem: LinearLayout = itemView.findViewById(R.id.rootItem)
-        var imvAttraction: ImageView = itemView.findViewById(R.id.imvAttraction)
+        var imvAttraction: SelectableRoundedImageView = itemView.findViewById(R.id.imvAttraction)
         var tvAttractionName: TextView = itemView.findViewById(R.id.tvAttractionName)
         var tvAttractionDescription: TextView = itemView.findViewById(R.id.tvAttractionDescription)
         var tvAttractionDistance: TextView = itemView.findViewById(R.id.tvAttractionDistance)
