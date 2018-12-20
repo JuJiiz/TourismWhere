@@ -2,8 +2,13 @@ package com.tourismwhere.tourismwhere.viewmodel
 
 import android.app.Activity
 import android.arch.lifecycle.ViewModel
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
+import android.provider.Settings
 import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import com.tourismwhere.tourismwhere.Constant
 import com.tourismwhere.tourismwhere.Constant.LOCATION_PERMISSION_REQUEST_CODE
 import com.tourismwhere.tourismwhere.Constant.TOKEN
@@ -24,7 +29,7 @@ class MainViewModel @Inject constructor(@param:Production private val mApiServic
     private var mGetAttractionsDisposable: Disposable? = null
     private var mEnableCheckingFromServer: Boolean = true
 
-    enum class PermissionState { PERMISSION_ON, PERMISSION_OFF }
+    enum class PermissionState { READY, PERMISSION_OFF, GPS_OFF }
     object ResultPermission {
         var permissionState: PermissionState = MainViewModel.PermissionState.PERMISSION_OFF
         var message = "no permission granted."
@@ -37,12 +42,19 @@ class MainViewModel @Inject constructor(@param:Production private val mApiServic
         var attractionModel: ArrayList<AttractionModel>? = null
     }
 
-    fun requestPermission(activity: Activity) {
-        ActivityCompat.requestPermissions(
-            activity,
-            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-            LOCATION_PERMISSION_REQUEST_CODE
-        )
+    fun requestPermission(activity: Activity, code: Int) {
+        if (code == 0) {
+            ActivityCompat.requestPermissions(
+                activity,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        } else if (code == 1) {
+            val gpsOptionsIntent = Intent(
+                Settings.ACTION_LOCATION_SOURCE_SETTINGS
+            )
+            ContextCompat.startActivity(activity, gpsOptionsIntent, null)
+        }
     }
 
     fun setResultPermission(
@@ -55,15 +67,20 @@ class MainViewModel @Inject constructor(@param:Production private val mApiServic
         mPermissionState.apply { onNext(result) }
     }
 
-    fun checkSession(activity: Activity) {
+    fun checkGPS(activity: Activity) {
+        val locationManager by lazy { activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager }
+        val gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+
         if (ActivityCompat.checkSelfPermission(
                 activity,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             setResultPermission(PermissionState.PERMISSION_OFF, "no permission granted.")
+        } else if (!gps) {
+            setResultPermission(PermissionState.GPS_OFF, "gps is disable.")
         } else {
-            setResultPermission(PermissionState.PERMISSION_ON, "permission granted.")
+            setResultPermission(PermissionState.READY, "ready.")
         }
     }
 
