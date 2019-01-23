@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var centerLocation: LatLng
     private var dialogFragment = PermissionDialogFragment()
-    private var radius = 5
+    private var radius = 25
     private var venues: ArrayList<AttractionModel> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,6 +85,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
         btnRadius.setOnClickListener {
             if (supportFragmentManager.findFragmentByTag(RadiusDialogFragment.Tag) == null) {
                 val radiusDialogFragment = RadiusDialogFragment()
+                radiusDialogFragment.setOnRadiusSetting(this)
                 val bundle = Bundle()
                 bundle.putInt("RADIUS", radius)
                 radiusDialogFragment.arguments = bundle

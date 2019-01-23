@@ -10,14 +10,21 @@ import com.tourismwhere.tourismwhere.R
 import kotlinx.android.synthetic.main.fragment_radius_dialog.*
 
 class RadiusDialogFragment : DialogFragment() {
-    private var radius = 5
-
-    companion object {
-        val Tag = RadiusDialogFragment::class.java.simpleName
-    }
+    private var radius = 25
+    private val minRadius = 1
+    private val maxRadius = 50
+    private var callback: OnRadiusSetting? = null
 
     interface OnRadiusSetting {
         fun updateRadius(newRadius: Int)
+    }
+
+    fun setOnRadiusSetting(callback: OnRadiusSetting) {
+        this.callback = callback
+    }
+
+    companion object {
+        val Tag = RadiusDialogFragment::class.java.simpleName
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,26 +34,26 @@ class RadiusDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.also {
-            radius = it.getInt("RADIUS", 5)
+            radius = it.getInt("RADIUS", 25)
         }
         tvRadius.text = "$radius"
 
         btnDecrease.setOnClickListener {
-            if (radius > 1) {
+            if (radius > minRadius) {
                 radius -= 1
                 tvRadius.text = "$radius"
             }
         }
 
         btnIncrease.setOnClickListener {
-            if (radius < 10) {
+            if (radius < maxRadius) {
                 radius += 1
                 tvRadius.text = "$radius"
             }
         }
 
         btnSetRadius.setOnClickListener {
-            if (context is OnRadiusSetting) (context as OnRadiusSetting).updateRadius(radius)
+            callback?.updateRadius(radius)
             this.dismiss()
         }
     }
