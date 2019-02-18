@@ -1,8 +1,8 @@
 package com.tourismwhere.tourismwhere.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -194,7 +194,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
                     centerLocation = LatLng(location.latitude, location.longitude)
                     mMap.addMarker(
                         MarkerOptions().position(centerLocation).title("Here").icon(
-                            bitmapDescriptorFromVector(this, R.drawable.ic_person_pin)
+                            bitmapDescriptorFromVector(this@MainActivity, R.drawable.ic_person_pin)
                         )
                     )
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(centerLocation, 12F))
@@ -206,8 +206,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
             }
     }
 
-    private fun bitmapDescriptorFromVector(context: Context, @DrawableRes vectorDrawableResourceId: Int): BitmapDescriptor {
-        val vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId)
+    private fun bitmapDescriptorFromVector(activity: Activity, @DrawableRes vectorDrawableResourceId: Int): BitmapDescriptor {
+        val vectorDrawable = ContextCompat.getDrawable(activity, vectorDrawableResourceId)
         vectorDrawable!!.setBounds(0, 0, vectorDrawable.intrinsicWidth, vectorDrawable.intrinsicHeight)
         val bitmap =
             Bitmap.createBitmap(vectorDrawable.intrinsicWidth, vectorDrawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
@@ -233,12 +233,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, RadiusDialogFragme
                     this.forEach {
                         safeLet(it.location?.latitude, it.location?.longitude) { latitude, longitude ->
                             mMap.addMarker(
-                                MarkerOptions().position(
-                                    LatLng(
-                                        latitude,
-                                        longitude
-                                    )
-                                ).title(if (it.name != null) it.name else "-")
+                                MarkerOptions().position(LatLng(latitude, longitude))
+                                    .title(if (it.name != null) it.name else "-")
+                                    .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.ic_pin))
                             )
                         }
                     }
