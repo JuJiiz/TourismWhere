@@ -3,7 +3,7 @@ package com.tourismwhere.tourismwhere
 import java.io.IOException
 
 object Constant{
-    const val ENDPOINT = "https://api.tourismdb.info/"
+    const val ENDPOINT = "https://api.dottourismdb.com/"
     const val TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzdXBlcl90b2tlbkB0b3VyaXNtLmNtdSJ9.oFjuV7HrcI1bQO62Vig_1dXY3MkdBA-ijXi_ew3ZPWY"
     const val LOADING_TIMEOUT_SECONDS = 10
     const val LOCATION_PERMISSION_REQUEST_CODE = 0x123

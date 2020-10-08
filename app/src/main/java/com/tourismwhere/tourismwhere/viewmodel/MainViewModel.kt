@@ -109,7 +109,7 @@ class MainViewModel @Inject constructor(@param:Production private val mApiServic
                         }
                     }, { error ->
                         setAttractionResult(
-                            FetchAttractionState.SUCCESS,
+                            FetchAttractionState.FAILED,
                             "$error",
                             null
                         )
